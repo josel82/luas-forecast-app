@@ -1,0 +1,46 @@
+# ------------------------------------
+# 1. Bytecode, Runtime & Cache
+# ------------------------------------
+*.pyc
+*~
+__pycache__/
+.DS_Store
+
+# ------------------------------------
+# 2. Virtual Environment & Dependencies (Pipenv)
+# ------------------------------------
+/venv/
+/env/
+# Pipfile and Pipfile.lock should be COMMITTED.
+
+# ------------------------------------
+# 3. Django-Specific Files
+# ------------------------------------
+# Local SQLite database
+/db.sqlite3
+
+# User-uploaded media
+/media/
+
+# Environment-specific/Sensitive data
+.env
+
+# ------------------------------------
+# 4. STATIC FILE EXCLUSION RULES
+# ------------------------------------
+
+# EXCLUDE IMAGE DIRECTORIES (as they contain only images)
+/static/images/
+/forecast/static/images/
+
+
+# EXCLUDE the GENERATED collectstatic folder 
+# You must change STATIC_ROOT in settings.py to a different name, e.g., 'staticfiles_collected'
+/staticfiles_collected/
+
+# ------------------------------------
+# 5. IDE and Editor Files (VS Code)
+# ------------------------------------
+.vscode/
+.idea/
+*.iml
