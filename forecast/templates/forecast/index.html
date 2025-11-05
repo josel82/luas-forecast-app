@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static "forecast/forecast.css" %}">
+{% endblock  %}
+
+{% block content %}
+    <header>
+        <h1>Windy Arbour Luas Stop</h1>
+    </header>
+    <table id="luas-table">
+        <thead>
+        <tr><th>Direction</th><th>Destination</th><th>Due (mins)</th></tr>
+        </thead>
+        <tbody>
+        {% for a in arrivals %}
+            <tr>
+                <td>{{ a.direction }}</td>
+                <td>{{ a.destination }}</td>
+                <td>{{ a.due_mins }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p id="last-updated">Last updated: {{ arrivals.0.timestamp|date:"H:i:s" }}</p>
+{% endblock  %}
+{% block scripts %}
+    <script>
+        async function refreshLuasData() {
+        try {
+            const response = await fetch("{% url 'luas_times_json' %}");
+            const data = await response.json();
+            const tbody = document.querySelector("#luas-table tbody");
+            tbody.innerHTML = ""; // clear old rows
+
+            data.arrivals.forEach(a => {
+            const row = `<tr>
+                <td>${a.direction}</td>
+                <td>${a.destination}</td>
+                <td>${a.due_mins}</td>
+            </tr>`;
+            tbody.insertAdjacentHTML('beforeend', row);
+            });
+
+            const now = new Date();
+            const formatted = now.toLocaleTimeString('en-IE', {
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById("last-updated").textContent = "Last updated: " + formatted;
+            } catch (err) {
+                console.error("Error fetching data:", err);
+            }
+        }
+
+        // Refresh every 15 seconds
+        setInterval(refreshLuasData, 30000);
+    </script>
+{% endblock  %}
