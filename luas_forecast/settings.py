@@ -125,9 +125,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATIC_ROOT = BASE_DIR / "staticfiles_collected"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # For global static files
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+# Enable compression and caching for static files
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
