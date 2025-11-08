@@ -1,31 +1,32 @@
-# Use an official lightweight Python image
-FROM python:3.12-slim
 
-# Prevent Python from writing .pyc files
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
 
-# Set the working directory
+# ---- Base image ----
+FROM python:3.12-slim-bookworm
+
+# Set working directory
 WORKDIR /app
 
-# Install system dependencies for psycopg2, requests, etc.
+# Install dependencies system-wide (minimal)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+    libpq-dev build-essential && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
+# Copy project files
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files
+# Copy the rest of the code
 COPY . .
 
-# Collect static files for production
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    DJANGO_SETTINGS_MODULE=luas_forecast.settings
+
+# Collect static files (optional if not using storage service)
 RUN python manage.py collectstatic --noinput
 
-# Expose port 8000
+# Expose port
 EXPOSE 8000
 
-# Run the Django app with Gunicorn (production-ready)
+# Start the app with Gunicorn
 CMD ["gunicorn", "luas_forecast.wsgi:application", "--bind", "0.0.0.0:8000"]
