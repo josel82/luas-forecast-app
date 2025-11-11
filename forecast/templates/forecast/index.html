@@ -7,8 +7,9 @@
 
 {% block content %}
     <header>
-        <h1>Windy Arbour Luas Stop</h1>
+        <h1>Luas Forecast</h1>
     </header>
+    {% include "forecast/includes/dropdown.html" %}
     <table id="luas-table">
         <thead>
         <tr><th>Direction</th><th>Destination</th><th>Due (mins)</th></tr>
@@ -27,7 +28,8 @@
 {% endblock  %}
 {% block scripts %}
     <script>
-        const luasTimesUrl = "{% url 'luas_times_json' %}"
+        const luasTimesUrl = "{% url 'luas_times_json' current_stop%}"
     </script>
     <script src={% static "forecast/forecast.js" %}></script>
+    <script src={% static "forecast/select_stop.js" %}></script>
 {% endblock  %}
