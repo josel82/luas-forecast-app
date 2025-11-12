@@ -10,21 +10,7 @@
         <h1>Luas Forecast</h1>
     </header>
     {% include "forecast/includes/dropdown.html" %}
-    <table id="luas-table">
-        <thead>
-        <tr><th>Direction</th><th>Destination</th><th>Due (mins)</th></tr>
-        </thead>
-        <tbody>
-        {% for a in arrivals %}
-            <tr>
-                <td>{{ a.direction }}</td>
-                <td>{{ a.destination }}</td>
-                <td>{{ a.due_mins }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <p id="last-updated">Last updated: {{ arrivals.0.timestamp|date:"H:i:s" }}</p>
+    {% include "forecast/includes/display-table.html" %}
 {% endblock  %}
 {% block scripts %}
     <script>

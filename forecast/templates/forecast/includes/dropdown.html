@@ -1,9 +1,11 @@
 {% load static %}
-<label for="stop-select">Choose a stop:</label>
-<select id="stop-select" onchange="selectStop()">
-    {% for stop in stops %}
-        <option value="{{ stop.id }}" {% if stop.id == selected_stop %}selected{% endif %}>
-            {{ stop.name }}
-        </option>
-    {% endfor %}
-</select>
+<div id="stop-select-wrapper">
+    <label for="stop-select">Choose a stop:</label>
+    <select id="stop-select" onchange="selectStop()">
+        {% for stop in stops %}
+            <option value="{{ stop.id }}" {% if stop.id == selected_stop %}selected{% endif %}>
+                {{ stop.name }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
