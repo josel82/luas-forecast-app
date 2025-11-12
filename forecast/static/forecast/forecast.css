@@ -35,12 +35,14 @@ h1 {
     font-weight: 300; /* Lighter weight for a modern, neutral look */
 }
 
+#luas-table, #stop-select-wrapper {
+    margin: 0 auto 30px auto;
+}
 /* --- Luas Table Design --- */
 
 #luas-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 0 auto 30px auto;
     background-color: var(--color-surface-dark);
     border-radius: 8px; /* Slight rounding for softness */
     overflow: hidden; /* Ensures table children respect border-radius */
@@ -123,7 +125,7 @@ h1 {
         font-size: 3.5em;
     }
     
-    #luas-table {
+    #luas-table, #stop-select-wrapper {
         max-width: 950px; /* Max width for comfortable reading on large screens */
     }
 
