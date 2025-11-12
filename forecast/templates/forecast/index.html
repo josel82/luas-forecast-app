@@ -28,7 +28,7 @@
 {% endblock  %}
 {% block scripts %}
     <script>
-        const luasTimesUrl = "{% url 'luas_times_json' current_stop%}"
+        const luasTimesUrl = "{% url 'luas_times_json' selected_stop%}"
     </script>
     <script src={% static "forecast/forecast.js" %}></script>
     <script src={% static "forecast/select_stop.js" %}></script>

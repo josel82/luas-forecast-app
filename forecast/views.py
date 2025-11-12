@@ -7,7 +7,7 @@ from .utils import STOPS, format_response, generateURL
 
 
 def get_luas_times(request):
-    stop_id = request.GET.get("stop", "stillorgan")
+    stop_id = request.GET.get("stop", "win")
     try:
         resp = requests.get(generateURL(stop_id), timeout=10)
         resp.raise_for_status()
@@ -17,7 +17,7 @@ def get_luas_times(request):
     return render(request, "forecast/index.html", {
         "arrivals": arrivals,
         "stops": STOPS,
-        "current_stop": stop_id,
+        "selected_stop": stop_id,
         })
 
 def luas_times_json(request, stop_id):
